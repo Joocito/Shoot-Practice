@@ -1,1 +1,7 @@
 Library/
+.vs/
+Logs/
+UserSettings/
+*.log
+*.suo
+*.dwlt
