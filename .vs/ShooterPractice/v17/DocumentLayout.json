@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\abcda\\OneDrive\\Desktop\\ShooterPractice\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{82BA9546-B5F5-F5B4-226C-05710F5A2E0A}|Assembly-CSharp.csproj|c:\\users\\abcda\\onedrive\\desktop\\shooterpractice\\assets\\scripts\\spherecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82BA9546-B5F5-F5B4-226C-05710F5A2E0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\spherecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{82BA9546-B5F5-F5B4-226C-05710F5A2E0A}|Assembly-CSharp.csproj|c:\\users\\abcda\\onedrive\\desktop\\shooterpractice\\assets\\scripts\\scoremanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82BA9546-B5F5-F5B4-226C-05710F5A2E0A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scoremanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ScoreManager.cs",
+              "DocumentMoniker": "C:\\Users\\abcda\\OneDrive\\Desktop\\ShooterPractice\\Assets\\Scripts\\ScoreManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ScoreManager.cs",
+              "ToolTip": "C:\\Users\\abcda\\OneDrive\\Desktop\\ShooterPractice\\Assets\\Scripts\\ScoreManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ScoreManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T01:50:47.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SphereController.cs",
+              "DocumentMoniker": "C:\\Users\\abcda\\OneDrive\\Desktop\\ShooterPractice\\Assets\\Scripts\\SphereController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SphereController.cs",
+              "ToolTip": "C:\\Users\\abcda\\OneDrive\\Desktop\\ShooterPractice\\Assets\\Scripts\\SphereController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SphereController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwD8AAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T01:49:36.361Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
