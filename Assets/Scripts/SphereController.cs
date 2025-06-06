@@ -1,56 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
 
 public class SphereController : MonoBehaviour
 {
-    public float speed = 1f;
+
+    public float baseSpeed = 1f;                
+    public float speedIncreasePerLevel = 2f;   
     public Vector3 movementLimitsMin = new Vector3(-5f, 1f, -5f);
     public Vector3 movementLimitsMax = new Vector3(5f, 5f, 5f);
-    public float directionChangeInterval = 2f;
-    public float boundaryThreshold = 0.1f; // Margen para detectar límites
+    public float directionChangeInterval = 2f;  
+    public float boundaryThreshold = 0.1f;      
 
-    public float respawnTime = 10f;
-    public int points = 10;
+    public float respawnTime = 10f;             
+    public int points = 10;                     
+    public GameObject destructionEffect;       
+    public AudioClip destructionSound;          
 
+    public TextMeshProUGUI speedDisplayText;    
+
+    // Variables privadas
+    private float currentSpeed;                
     private bool isActive = true;
     private Vector3 initialPosition;
     private Vector3 currentDirection;
     private float lastDirectionChangeTime;
     private Rigidbody rb;
+    private AudioSource audioSource;
+    private int currentSpeedLevel = 0;
 
     void Start()
     {
-        initialPosition = transform.position;
+        // Inicialización de componentes
         rb = GetComponent<Rigidbody>();
-
-        if (rb != null)
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
         {
-            rb.useGravity = false;
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-            rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Mejor detección de colisiones
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
 
+        // Configuración física
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+        // Estado inicial
+        initialPosition = transform.position;
+        currentSpeed = baseSpeed;
         ChangeDirection();
+
+        // Suscripción a eventos
+        ScoreManager.OnSpeedIncrease += UpdateSpeedLevel;
+        UpdateSpeedDisplay();
     }
 
-    void FixedUpdate() // Cambiado a FixedUpdate para mejor física
+    void OnDestroy()
+    {
+        // Limpieza de suscripción
+        ScoreManager.OnSpeedIncrease -= UpdateSpeedLevel;
+    }
+
+    void FixedUpdate()
     {
         if (isActive)
         {
             MoveSphere();
+            CheckBoundaries();
         }
     }
 
     void MoveSphere()
     {
+        // Cambio de dirección programado
         if (Time.time - lastDirectionChangeTime > directionChangeInterval)
         {
             ChangeDirection();
         }
 
         // Movimiento con física
-        Vector3 movement = currentDirection * speed * Time.fixedDeltaTime;
+        Vector3 movement = currentDirection * currentSpeed * Time.fixedDeltaTime;
         Vector3 newPosition = rb.position + movement;
 
         // Aplicar límites con margen
@@ -65,9 +96,6 @@ public class SphereController : MonoBehaviour
                                   movementLimitsMax.z - boundaryThreshold);
 
         rb.MovePosition(newPosition);
-
-        // Detección mejorada de límites
-        CheckBoundaries();
     }
 
     void CheckBoundaries()
@@ -100,8 +128,7 @@ public class SphereController : MonoBehaviour
         if (hitBoundary)
         {
             lastDirectionChangeTime = Time.time;
-            // Ajuste adicional para evitar quedarse pegado
-            rb.velocity = currentDirection * speed;
+            rb.velocity = currentDirection * currentSpeed;
         }
     }
 
@@ -139,17 +166,28 @@ public class SphereController : MonoBehaviour
         if (!isActive) return;
 
         isActive = false;
+
+        // Efectos de destrucción
+        if (destructionEffect != null)
+        {
+            Instantiate(destructionEffect, transform.position, Quaternion.identity);
+        }
+
+        if (destructionSound != null)
+        {
+            audioSource.PlayOneShot(destructionSound);
+        }
+
+        // Desactivar visualmente
         gameObject.SetActive(false);
 
+        // Añadir puntos
         if (ScoreManager.Instance != null)
         {
             ScoreManager.Instance.AddScore(points);
         }
-        else
-        {
-            Debug.LogError("ScoreManager instance not found!");
-        }
 
+        // Programar respawn
         Invoke(nameof(RespawnSphere), respawnTime);
     }
 
@@ -162,8 +200,24 @@ public class SphereController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    void OnDrawGizmos()
+    void UpdateSpeedLevel(int speedLevel)
     {
+        currentSpeedLevel = speedLevel;
+        currentSpeed = baseSpeed + (speedIncreasePerLevel * speedLevel);
+        UpdateSpeedDisplay();
+    }
+
+    void UpdateSpeedDisplay()
+    {
+        if (speedDisplayText != null)
+        {
+            speedDisplayText.text = $"Vel: {currentSpeed:F1}";
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Visualización de límites en el editor
         Gizmos.color = Color.cyan;
         Vector3 center = (movementLimitsMax + movementLimitsMin) * 0.5f;
         Vector3 size = movementLimitsMax - movementLimitsMin;

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 30685683}
   - component: {fileID: 30685682}
   - component: {fileID: 30685681}
+  - component: {fileID: 30685686}
   m_Layer: 0
   m_Name: Tarjet (1)
   m_TagString: Tarjet
@@ -210,7 +211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c04b2a7f90a5b4aaaf306d78fa31ea, type: 2}
+  - {fileID: 2100000, guid: 0914a12d87dd37049ba50c3e26c92323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -255,6 +256,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &30685686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30685680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a1982b229986747af4cdb1cad62b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  intactModel: {fileID: 0}
+  destroyedModel: {fileID: 0}
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1 &36776552
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5ad539904d929994ca440cdcd7e75748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -401,13 +420,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae075a7c0a2b18e4d878ff3e6cdd54ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  baseSpeed: 1
+  speedIncreasePerLevel: 2
   movementLimitsMin: {x: -23.7, y: 1, z: -30}
   movementLimitsMax: {x: -12.5, y: 7, z: -15.4}
   directionChangeInterval: 2
   boundaryThreshold: 0.1
   respawnTime: 5
   points: 10
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  speedDisplayText: {fileID: 0}
 --- !u!1 &115091133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,13 +1186,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae075a7c0a2b18e4d878ff3e6cdd54ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  baseSpeed: 1
+  speedIncreasePerLevel: 2
   movementLimitsMin: {x: -23.7, y: 1, z: -30}
   movementLimitsMax: {x: -12.5, y: 7, z: -15.4}
   directionChangeInterval: 2
   boundaryThreshold: 0.1
   respawnTime: 5
   points: 10
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  speedDisplayText: {fileID: 0}
 --- !u!135 &416675803
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1211,7 +1238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5ad539904d929994ca440cdcd7e75748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1377,6 +1404,7 @@ GameObject:
   - component: {fileID: 472513304}
   - component: {fileID: 472513303}
   - component: {fileID: 472513302}
+  - component: {fileID: 472513305}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -1472,6 +1500,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472513300}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &472513305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472513300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce07c81edae3a514da9ed034f798642e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &553640212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1923,6 +1963,7 @@ GameObject:
   - component: {fileID: 572113124}
   - component: {fileID: 572113123}
   - component: {fileID: 572113126}
+  - component: {fileID: 572113127}
   m_Layer: 0
   m_Name: Tarjet
   m_TagString: Tarjet
@@ -1986,7 +2027,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c04b2a7f90a5b4aaaf306d78fa31ea, type: 2}
+  - {fileID: 2100000, guid: 0914a12d87dd37049ba50c3e26c92323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2043,6 +2084,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &572113127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572113121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a1982b229986747af4cdb1cad62b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  intactModel: {fileID: 0}
+  destroyedModel: {fileID: 0}
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1 &574308716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,6 +2115,7 @@ GameObject:
   - component: {fileID: 574308719}
   - component: {fileID: 574308718}
   - component: {fileID: 574308717}
+  - component: {fileID: 574308722}
   m_Layer: 0
   m_Name: Tarjet (2)
   m_TagString: Tarjet
@@ -2131,7 +2191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c04b2a7f90a5b4aaaf306d78fa31ea, type: 2}
+  - {fileID: 2100000, guid: 0914a12d87dd37049ba50c3e26c92323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2176,6 +2236,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574308722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574308716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a1982b229986747af4cdb1cad62b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  intactModel: {fileID: 0}
+  destroyedModel: {fileID: 0}
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1 &632136301
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,8 +2397,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 685607674}
+  - component: {fileID: 685607675}
   m_Layer: 0
-  m_Name: WeapSpawn
+  m_Name: WeaponController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2343,6 +2422,26 @@ Transform:
   - {fileID: 1590589521886994019}
   m_Father: {fileID: 258604491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &685607675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685607673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356249295fd97c349bd724a7fd2678d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefabs:
+  - {fileID: 9117040961468813834, guid: 8bbc0eecd9fa2b749b0b9cb337a017dd, type: 3}
+  - {fileID: 5623495355591257411, guid: 67d27f2654f058448a369ccdb422ccad, type: 3}
+  switchKey: 113
+  weaponHolder: {fileID: 0}
+  defaultWeaponIndex: 0
+  weaponInstances: []
+  currentWeaponIndex: -1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,13 +3210,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae075a7c0a2b18e4d878ff3e6cdd54ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  baseSpeed: 1
+  speedIncreasePerLevel: 2
   movementLimitsMin: {x: -23.7, y: 1, z: -30}
   movementLimitsMax: {x: -12.5, y: 7, z: -15.4}
   directionChangeInterval: 2
   boundaryThreshold: 0.1
   respawnTime: 5
   points: 10
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  speedDisplayText: {fileID: 0}
 --- !u!135 &1153187053
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3159,7 +3262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5ad539904d929994ca440cdcd7e75748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3686,6 +3789,7 @@ GameObject:
   - component: {fileID: 1248402990}
   - component: {fileID: 1248402989}
   - component: {fileID: 1248402988}
+  - component: {fileID: 1248402993}
   m_Layer: 0
   m_Name: Tarjet (4)
   m_TagString: Tarjet
@@ -3761,7 +3865,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c04b2a7f90a5b4aaaf306d78fa31ea, type: 2}
+  - {fileID: 2100000, guid: 0914a12d87dd37049ba50c3e26c92323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3806,6 +3910,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1248402993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248402987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a1982b229986747af4cdb1cad62b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  intactModel: {fileID: 0}
+  destroyedModel: {fileID: 0}
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1 &1341015896
 GameObject:
   m_ObjectHideFlags: 0
@@ -4528,6 +4650,7 @@ GameObject:
   - component: {fileID: 1688738332}
   - component: {fileID: 1688738331}
   - component: {fileID: 1688738330}
+  - component: {fileID: 1688738335}
   m_Layer: 0
   m_Name: Tarjet (3)
   m_TagString: Tarjet
@@ -4603,7 +4726,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9c04b2a7f90a5b4aaaf306d78fa31ea, type: 2}
+  - {fileID: 2100000, guid: 0914a12d87dd37049ba50c3e26c92323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4648,6 +4771,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1688738335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688738329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a1982b229986747af4cdb1cad62b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnTime: 5
+  intactModel: {fileID: 0}
+  destroyedModel: {fileID: 0}
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!1 &1734174678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,13 +4849,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae075a7c0a2b18e4d878ff3e6cdd54ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  baseSpeed: 1
+  speedIncreasePerLevel: 2
   movementLimitsMin: {x: -23.7, y: 1, z: -30}
   movementLimitsMax: {x: -12.5, y: 7, z: -15.4}
   directionChangeInterval: 2
   boundaryThreshold: 0.1
   respawnTime: 5
   points: 10
+  destructionEffect: {fileID: 0}
+  destructionSound: {fileID: 0}
+  speedDisplayText: {fileID: 0}
 --- !u!135 &1734174681
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4756,7 +4901,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5ad539904d929994ca440cdcd7e75748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11023,7 +11168,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -771045852290072130, guid: 5cdc18ce23cb93841b0295a54e178a21, type: 3}
+  - {fileID: 2100000, guid: e33d9136dcb891b4d961d5a8a735ab0f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

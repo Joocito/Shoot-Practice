@@ -6,10 +6,15 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     public TextMeshProUGUI scoreText;
     private int currentScore = 0;
+    private int speedIncreaseThreshold = 100;
+    private int nextThreshold = 100;
+
+    // Evento para notificar aumento de velocidad
+    public delegate void SpeedIncreaseHandler(int speedIncreaseCount);
+    public static event SpeedIncreaseHandler OnSpeedIncrease;
 
     void Awake()
     {
-        // Mejor inicialización del Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -17,33 +22,44 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persiste entre escenas si es necesario
+            DontDestroyOnLoad(gameObject);
         }
-
         InitializeScore();
     }
 
     void InitializeScore()
     {
         currentScore = 0;
+        nextThreshold = speedIncreaseThreshold;
         UpdateScoreText();
     }
 
     public void AddScore(int points)
     {
         currentScore += points;
-        Debug.Log($"Adding {points} points. Total: {currentScore}"); // Debug
+        CheckForSpeedIncrease();
         UpdateScoreText();
+    }
+
+    void CheckForSpeedIncrease()
+    {
+        if (currentScore >= nextThreshold)
+        {
+            nextThreshold += speedIncreaseThreshold;
+            int speedIncreaseCount = currentScore / speedIncreaseThreshold;
+
+            // Disparar evento
+            OnSpeedIncrease?.Invoke(speedIncreaseCount);
+
+            Debug.Log($"Velocidad aumentada! Nivel: {speedIncreaseCount}");
+        }
     }
 
     void UpdateScoreText()
     {
-        if (scoreText == null)
+        if (scoreText != null)
         {
-            Debug.LogError("ScoreText reference is missing!");
-            return;
+            scoreText.text = $"Puntos: {currentScore}\nNivel Velocidad: {currentScore / speedIncreaseThreshold}";
         }
-
-        scoreText.text = $"Puntos: {currentScore}";
     }
 }
