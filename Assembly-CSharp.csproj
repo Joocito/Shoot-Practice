@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\BrokenBottle.cs" />
     <Compile Include="Assets\Scripts\GlobalReferences.cs" />
+    <Compile Include="Assets\Scripts\TargetRespawn.cs" />
     <Compile Include="Assets\UnityTechnologies\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
