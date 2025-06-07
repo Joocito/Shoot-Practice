@@ -1,12 +1,7 @@
-# Carpetas temporales de Unity
 Library/
-Temp/
-obj/
+.vs/
 Logs/
 UserSettings/
-
-# Archivos generados automáticamente
-*.csproj
-*.sln
 *.log
-
+*.suo
+*.dwlt
