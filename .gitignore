@@ -1,1 +1,12 @@
+# Carpetas temporales de Unity
 Library/
+Temp/
+obj/
+Logs/
+UserSettings/
+
+# Archivos generados automáticamente
+*.csproj
+*.sln
+*.log
+
