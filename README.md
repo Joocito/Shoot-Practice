@@ -1,0 +1,1 @@
+"Shoot-Practice" is a Unity-developed shooting practice game designed to enhance your accuracy through a variety of challenges. Test your skills with different scenarios, from static targets to moving objects, and sharpen your precision like a true marksman. Are you ready for the challenge?
