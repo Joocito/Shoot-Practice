@@ -7,6 +7,8 @@ using UnityEngine.Rendering;
 
 public class Weapon : MonoBehaviour
 {
+    public bool isActiveWeapon;
+
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 2f;
@@ -19,11 +21,14 @@ public class Weapon : MonoBehaviour
     public float bulletVelocity = 30;
     public float bulletPrefabLifeTime = 3f;
     public GameObject muzzleEffect;
-    public Animator animator;
+    internal Animator animator;
 
     public float reloadTime;
     public int magazineSize, bulletsLeft;
     public bool isReloading;
+
+    public Vector3 spawnPosition;
+    public Vector3 spawnRotation;
 
     public bool drawSpreadPattern = true;
     public int spreadPatternSegments = 20;
@@ -47,39 +52,42 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (bulletsLeft == 0 && isShooting)
+        if (isActiveWeapon)
         {
-            SoundManager.Instance.emptyManagizeSound1911.Play();
-        }
+            if (bulletsLeft == 0 && isShooting)
+            {
+                SoundManager.Instance.emptyManagizeSound1911.Play();
+            }
 
-        if (currentShootingMode == ShootingMode.Auto)
-        {
-            isShooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
-        {
-            isShooting = Input.GetKey(KeyCode.Mouse0);
-        }
+            if (currentShootingMode == ShootingMode.Auto)
+            {
+                isShooting = Input.GetKey(KeyCode.Mouse0);
+            }
+            else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
+            {
+                isShooting = Input.GetKey(KeyCode.Mouse0);
+            }
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading)
-        {
-            Reload();
-        }
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !isReloading)
+            {
+                Reload();
+            }
 
-        if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
-        {
-            // Reload();
-        }
+            if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
+            {
+                // Reload();
+            }
 
-        if (readyToShoot && isShooting && bulletsLeft > 0)
-        {
-            burstBulletsLeft = bulletPerBurst;
-            FireWeapon();
-        }
+            if (readyToShoot && isShooting && bulletsLeft > 0)
+            {
+                burstBulletsLeft = bulletPerBurst;
+                FireWeapon();
+            }
 
-        if (AmmoManager.Instance.ammoDisplay != null)
-        {
-            AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletPerBurst} / {magazineSize / bulletPerBurst}";
+            if (AmmoManager.Instance.ammoDisplay != null)
+            {
+                AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletPerBurst} / {magazineSize / bulletPerBurst}";
+            } 
         }
     }
 
