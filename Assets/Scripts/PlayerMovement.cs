@@ -12,21 +12,23 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    public Vector2 mapXBounds = new Vector2(-50f, 50f); // Límites en eje X
-    public Vector2 mapZBounds = new Vector2(-50f, 50f); // Límites en eje Z
-    public float yLimit = -10f; // Si cae por debajo de este valor, se reinicia
+    public LayerMask obstacleMask; // NUEVO: máscara para objetos de tiro
+
+    public Vector2 mapXBounds = new Vector2(-50f, 50f);
+    public Vector2 mapZBounds = new Vector2(-50f, 50f);
+    public float yLimit = -10f;
 
     Vector3 velocity;
     bool isGrounded;
     bool isMoving;
-    private Vector3 lastPosition = new Vector3(0f, 0f, 0f);
+    private Vector3 lastPosition = Vector3.zero;
     public float skinWidth = 0.1f;
     private Vector3 respawnPosition;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        respawnPosition = transform.position; // Guarda posición inicial para respawn
+        respawnPosition = transform.position;
     }
 
     void Update()
@@ -47,10 +49,9 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        // Normaliza el vector para movimiento diagonal
         if (move.magnitude > 1f) move.Normalize();
 
-        // Verifica colisiones antes de mover
+        // Usa las máscaras combinadas
         if (!CheckCollision(move, skinWidth))
         {
             controller.Move(move * speed * Time.deltaTime);
@@ -79,19 +80,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 currentPosition = transform.position;
 
-        // Verificar límites en X
-        if (currentPosition.x < mapXBounds.x || currentPosition.x > mapXBounds.y)
-        {
-            currentPosition.x = Mathf.Clamp(currentPosition.x, mapXBounds.x, mapXBounds.y);
-        }
+        currentPosition.x = Mathf.Clamp(currentPosition.x, mapXBounds.x, mapXBounds.y);
+        currentPosition.z = Mathf.Clamp(currentPosition.z, mapZBounds.x, mapZBounds.y);
 
-        // Verificar límites en Z
-        if (currentPosition.z < mapZBounds.x || currentPosition.z > mapZBounds.y)
-        {
-            currentPosition.z = Mathf.Clamp(currentPosition.z, mapZBounds.x, mapZBounds.y);
-        }
-
-        // Verificar si cayó del mapa
         if (currentPosition.y < yLimit)
         {
             RespawnPlayer();
@@ -103,10 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
     void RespawnPlayer()
     {
-        // Reiniciar posición y velocidad
         transform.position = respawnPosition;
         velocity = Vector3.zero;
-
         Debug.Log("Player respawned due to falling off the map");
     }
 
@@ -116,10 +105,12 @@ public class PlayerMovement : MonoBehaviour
         lastPosition = transform.position;
     }
 
+    // MODIFICADO: ahora combina ground y obstáculos
     bool CheckCollision(Vector3 direction, float distance)
     {
         RaycastHit hit;
         float collisionDistance = controller.radius + distance;
+        int combinedMask = groundMask | obstacleMask;
 
         return Physics.SphereCast(
             transform.position,
@@ -127,10 +118,9 @@ public class PlayerMovement : MonoBehaviour
             direction,
             out hit,
             collisionDistance,
-            groundMask);
+            combinedMask);
     }
 
-    // Dibuja gizmos para visualizar los límites en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
