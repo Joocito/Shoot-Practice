@@ -7,6 +7,7 @@ public class MenuSystem : MonoBehaviour
 {
    public void Jugar(string NombreJuego)
     {
+        Time.timeScale = 1.0f;  
         SceneManager.LoadScene(NombreJuego);
     }
 
