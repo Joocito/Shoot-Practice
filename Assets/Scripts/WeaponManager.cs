@@ -90,18 +90,37 @@ public class WeaponManager : MonoBehaviour
 
     public void SwitchActiveSlot(int slotNumber)
     {
+        // Desactivar el arma actual
         if (activeWeaponSlot.transform.childCount > 0)
         {
             Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             currentWeapon.isActiveWeapon = false;
+
+            // Detener y limpiar el sistema de partículas
+            ParticleSystem muzzleParticles = currentWeapon.muzzleEffect.GetComponent<ParticleSystem>();
+            if (muzzleParticles != null)
+            {
+                muzzleParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
         }
 
+        // Cambiar al nuevo slot
         activeWeaponSlot = weaponSlots[slotNumber];
 
+        // Activar el nuevo arma
         if (activeWeaponSlot.transform.childCount > 0)
         {
             Weapon newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             newWeapon.isActiveWeapon = true;
+
+            // Preparar el sistema de partículas del nuevo arma
+            ParticleSystem newMuzzleParticles = newWeapon.muzzleEffect.GetComponent<ParticleSystem>();
+            if (newMuzzleParticles != null)
+            {
+                newMuzzleParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                newMuzzleParticles.Play();
+            }
         }
     }
 }
+

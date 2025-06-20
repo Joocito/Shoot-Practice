@@ -43,12 +43,24 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+      
         readyToShoot = true;
         burstBulletsLeft = bulletPerBurst;
         animator = GetComponent<Animator>();
         bulletsLeft = magazineSize;
         CreateDebugMaterial();
+
+        // Asegurarse de que el muzzle effect esté inicializado correctamente
+        if (muzzleEffect != null)
+        {
+            ParticleSystem ps = muzzleEffect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
     }
+
 
     void Update()
     {

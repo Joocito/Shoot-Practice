@@ -148,3 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a868dd2382a0d8f4881915c755d12889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawDebugRay: 1
+  debugRayColor: {r: 1, g: 0, b: 0, a: 1}
+  debugRayDuration: 1
