@@ -41,5 +41,5 @@ Put your marksmanship to the test with long-distance targets and constantly movi
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
